@@ -1,18 +1,12 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 27
-
-
-
+    compileSdkVersion rootProject.ext.compileSdkVersion
     defaultConfig {
-        minSdkVersion 19
-        targetSdkVersion 27
-        versionCode 1
-        versionName "1.0"
-
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode rootProject.ext.versionCode
+        versionName "${rootProject.ext.versionName}"
     }
 
     buildTypes {
@@ -27,8 +21,12 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    implementation 'com.android.support:appcompat-v7:27.1.1'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    implementation "com.android.support:appcompat-v7:${rootProject.ext.androidSupportVersion}"
+    implementation "com.android.support:design:${rootProject.ext.androidSupportVersion}"
+
+    // ML Kit dependencies
+    implementation "com.google.firebase:firebase-core:$firebaseCoreVersion"
+    implementation "com.google.firebase:firebase-ml-vision:$firebaseMlVisionVersion"
+    implementation "com.google.firebase:firebase-ml-vision-image-label-model:$firebaseMlVisionImageLabelModelVersion"
+    implementation "com.google.firebase:firebase-ml-model-interpreter:$firebaseMlModelInterpreter"
 }
