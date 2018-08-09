@@ -4,6 +4,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
+import fibamlscan.library.PreviewActivity;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -11,10 +13,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        findViewById(R.id.scan).setOnClickListener(new View.OnClickListener() {
-//            @Override public void onClick(View v) {
-//                startActivityForResult();
-//            }
-//        });
+        findViewById(R.id.scan).setOnClickListener(new View.OnClickListener() {
+            @Override public void onClick(View v) {
+                // todo: startActivityForResult();
+                startActivity(PreviewActivity.getStartingIntent(MainActivity.this));
+            }
+        });
     }
 }

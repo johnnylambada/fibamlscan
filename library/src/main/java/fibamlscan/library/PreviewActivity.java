@@ -14,6 +14,7 @@
 package fibamlscan.library;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -27,15 +28,18 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-/** Demo app showing the various features of ML Kit for Firebase. This class is used to
- * set up continuous frame processing on frames from a camera source. */
-public final class LivePreviewActivity extends AppCompatActivity implements OnRequestPermissionsResultCallback {
-  private static final String TAG = "LivePreviewActivity";
+/** This class is used to set up continuous frame processing on frames from a camera source. */
+public final class PreviewActivity extends AppCompatActivity implements OnRequestPermissionsResultCallback {
+  private static final String TAG = "PreviewActivity";
   private static final int PERMISSION_REQUESTS = 1;
 
   private CameraSource cameraSource = null;
   private CameraSourcePreview preview;
   private GraphicOverlay graphicOverlay;
+
+  public static Intent getStartingIntent(Context context){
+    return new Intent(context, PreviewActivity.class);
+  }
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
