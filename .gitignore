@@ -2,6 +2,8 @@
 *.iml
 /local.properties
 /build
+/app/build
+/library/build
 /captures
 .externalNativeBuild
 .DS_Store
