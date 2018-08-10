@@ -8,3 +8,6 @@
 .externalNativeBuild
 .DS_Store
 .gradle
+
+# Don't save creds to github
+app/google-services.json

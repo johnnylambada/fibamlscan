@@ -24,6 +24,8 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
+import com.google.firebase.ml.vision.barcode.FirebaseVisionBarcode;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +33,7 @@ import java.util.List;
 /** This class is used to set up continuous frame processing on frames from a camera source. */
 public final class PreviewActivity extends AppCompatActivity implements OnRequestPermissionsResultCallback {
   private static final String TAG = "PreviewActivity";
+  private static final String EXTRA_BARCODE_FORMAT = "EXTRA_BARCODE_FORMAT";
   private static final int PERMISSION_REQUESTS = 1;
 
   private CameraSource cameraSource = null;
@@ -39,6 +42,11 @@ public final class PreviewActivity extends AppCompatActivity implements OnReques
 
   public static Intent getStartingIntent(Context context){
     return new Intent(context, PreviewActivity.class);
+  }
+
+  public static Intent getStartingIntent(Context context, int barcodeFormat){
+    return getStartingIntent(context)
+            .putExtra(EXTRA_BARCODE_FORMAT,barcodeFormat);
   }
 
   @Override
@@ -70,7 +78,12 @@ public final class PreviewActivity extends AppCompatActivity implements OnReques
       cameraSource = new CameraSource(this, graphicOverlay);
     }
 
-    cameraSource.setMachineLearningFrameProcessor(new BarcodeScanningProcessor());
+    int barcodeFormat = FirebaseVisionBarcode.FORMAT_ALL_FORMATS;
+    if (getIntent()!=null) {
+      barcodeFormat = getIntent().getIntExtra(EXTRA_BARCODE_FORMAT,barcodeFormat);
+    }
+
+    cameraSource.setMachineLearningFrameProcessor(new BarcodeScanningProcessor(barcodeFormat));
   }
 
   /**
