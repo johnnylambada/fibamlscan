@@ -28,15 +28,21 @@ import java.util.List;
 
 public class BarcodeScanningProcessor extends VisionProcessorBase<List<FirebaseVisionBarcode>> {
 
+  public interface OnBarcode {
+    void onBarcode(String barcode);
+  }
+
   private static final String TAG = "BarcodeScanProc";
 
   private final FirebaseVisionBarcodeDetector detector;
+  private final OnBarcode onBarcode;
 
-  public BarcodeScanningProcessor(){
-    this(FirebaseVisionBarcode.FORMAT_ALL_FORMATS);
+  public BarcodeScanningProcessor(OnBarcode onBarcode){
+    this(onBarcode, FirebaseVisionBarcode.FORMAT_ALL_FORMATS);
   }
 
-  public BarcodeScanningProcessor(int format) {
+  public BarcodeScanningProcessor(OnBarcode onBarcode, int format) {
+    this.onBarcode = onBarcode;
     detector = FirebaseVision
             .getInstance()
             .getVisionBarcodeDetector(new FirebaseVisionBarcodeDetectorOptions.Builder()
@@ -69,6 +75,7 @@ public class BarcodeScanningProcessor extends VisionProcessorBase<List<FirebaseV
       FirebaseVisionBarcode barcode = barcodes.get(i);
       BarcodeGraphic barcodeGraphic = new BarcodeGraphic(graphicOverlay, barcode);
       graphicOverlay.add(barcodeGraphic);
+      onBarcode.onBarcode(barcode.getRawValue());
     }
   }
 

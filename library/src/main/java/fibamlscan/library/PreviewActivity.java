@@ -13,6 +13,7 @@
 // limitations under the License.
 package fibamlscan.library;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
@@ -34,6 +35,7 @@ import java.util.List;
 public final class PreviewActivity extends AppCompatActivity implements OnRequestPermissionsResultCallback {
   private static final String TAG = "PreviewActivity";
   private static final String EXTRA_BARCODE_FORMAT = "EXTRA_BARCODE_FORMAT";
+  public final static String RETURN_BARCODE = "RETURN_BARCODE";
   private static final int PERMISSION_REQUESTS = 1;
 
   private CameraSource cameraSource = null;
@@ -52,18 +54,11 @@ public final class PreviewActivity extends AppCompatActivity implements OnReques
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    Log.d(TAG, "onCreate");
 
     setContentView(R.layout.activity_live_preview);
 
     preview = (CameraSourcePreview) findViewById(R.id.firePreview);
-    if (preview == null) {
-      Log.d(TAG, "Preview is null");
-    }
     graphicOverlay = (GraphicOverlay) findViewById(R.id.fireFaceOverlay);
-    if (graphicOverlay == null) {
-      Log.d(TAG, "graphicOverlay is null");
-    }
 
     if (allPermissionsGranted()) {
       createCameraSource();
@@ -83,7 +78,12 @@ public final class PreviewActivity extends AppCompatActivity implements OnReques
       barcodeFormat = getIntent().getIntExtra(EXTRA_BARCODE_FORMAT,barcodeFormat);
     }
 
-    cameraSource.setMachineLearningFrameProcessor(new BarcodeScanningProcessor(barcodeFormat));
+    cameraSource.setMachineLearningFrameProcessor(new BarcodeScanningProcessor(new BarcodeScanningProcessor.OnBarcode() {
+      @Override public void onBarcode(String barcode) {
+        setResult(Activity.RESULT_OK, new Intent().putExtra(RETURN_BARCODE,barcode));
+        finish();
+      }
+    },barcodeFormat));
   }
 
   /**
@@ -94,12 +94,6 @@ public final class PreviewActivity extends AppCompatActivity implements OnReques
   private void startCameraSource() {
     if (cameraSource != null) {
       try {
-        if (preview == null) {
-          Log.d(TAG, "resume: Preview is null");
-        }
-        if (graphicOverlay == null) {
-          Log.d(TAG, "resume: graphOverlay is null");
-        }
         preview.start(cameraSource, graphicOverlay);
       } catch (IOException e) {
         Log.e(TAG, "Unable to start camera source.", e);
