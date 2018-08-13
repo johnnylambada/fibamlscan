@@ -25,4 +25,24 @@
             android:layout_alignParentBottom="true"/>
     </fibamlscan.library.CameraSourcePreview>
 
+    <Button
+        android:id="@+id/toggleFlash"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_margin="16dp"
+        android:text="toggle flash"
+        />
+
+    <Button
+        android:id="@+id/setFlash"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="16dp"
+        android:text="flash on"
+        />
+
 </RelativeLayout>

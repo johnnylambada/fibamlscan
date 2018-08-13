@@ -70,6 +70,7 @@ public class CameraSource {
   protected Activity activity;
 
   private Camera camera;
+  private Boolean mFlashState;
 
   protected int facing = CAMERA_FACING_BACK;
 
@@ -172,6 +173,73 @@ public class CameraSource {
     processingThread.start();
     return this;
   }
+
+  private static boolean isFlashSupported(Camera camera) {
+    if (camera != null) {
+      Camera.Parameters parameters = camera.getParameters();
+      if (parameters.getFlashMode() == null) {
+        return false;
+      } else {
+        List<String> supportedFlashModes = parameters.getSupportedFlashModes();
+        return supportedFlashModes != null && !supportedFlashModes.isEmpty() && (supportedFlashModes.size() != 1 || !((String)supportedFlashModes.get(0)).equals("off"));
+      }
+    } else {
+      return false;
+    }
+  }
+
+  /**
+   * Turn the flash on or off
+   * @param turnOn
+   */
+  public void setFlash(boolean turnOn) {
+    this.mFlashState = turnOn;
+    if (this.camera != null && isFlashSupported(this.camera)) {
+      Camera.Parameters parameters = this.camera.getParameters();
+      if (turnOn) {
+        if (parameters.getFlashMode().equals(Camera.Parameters.FLASH_MODE_TORCH)) {
+          return;
+        }
+        parameters.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
+      } else {
+        if (parameters.getFlashMode().equals(Camera.Parameters.FLASH_MODE_OFF)) {
+          return;
+        }
+        parameters.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
+      }
+      this.camera.setParameters(parameters);
+    }
+
+  }
+
+  /**
+   *
+   * @return true if the flash is on
+   */
+  public boolean getFlash() {
+    if (this.camera != null && isFlashSupported(this.camera)) {
+      Camera.Parameters parameters = this.camera.getParameters();
+      return parameters.getFlashMode().equals(Camera.Parameters.FLASH_MODE_TORCH);
+    } else {
+      return false;
+    }
+  }
+
+  /**
+   * toggle the flash
+   */
+  public void toggleFlash() {
+    if (this.camera != null && isFlashSupported(this.camera)) {
+      Camera.Parameters parameters = this.camera.getParameters();
+      if (parameters.getFlashMode().equals(Camera.Parameters.FLASH_MODE_TORCH)) {
+        parameters.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
+      } else {
+        parameters.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
+      }
+      this.camera.setParameters(parameters);
+    }
+  }
+
 
   /**
    * Opens the camera and starts sending preview frames to the underlying detector. The supplied

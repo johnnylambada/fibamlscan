@@ -24,6 +24,8 @@ import android.support.v4.app.ActivityCompat.OnRequestPermissionsResultCallback;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -45,6 +47,7 @@ public final class PreviewActivity extends AppCompatActivity implements OnReques
   private CameraSource cameraSource = null;
   private CameraSourcePreview preview;
   private GraphicOverlay graphicOverlay;
+  private Button toggleFlash, setFlash;
 
   public static Intent getStartingIntent(Context context){
     return new Intent(context, PreviewActivity.class);
@@ -63,11 +66,45 @@ public final class PreviewActivity extends AppCompatActivity implements OnReques
 
     preview = (CameraSourcePreview) findViewById(fibamlscan.library.R.id.preview);
     graphicOverlay = (GraphicOverlay) findViewById(fibamlscan.library.R.id.overlay);
+    toggleFlash = (Button) findViewById(R.id.toggleFlash);
+    setFlash = (Button) findViewById(R.id.setFlash);
+
+    toggleFlash.setOnClickListener(new View.OnClickListener() {
+      @Override public void onClick(View v) {
+        if (cameraSource!=null) {
+          cameraSource.toggleFlash();
+          updateFlashUi();
+        }
+      }
+    });
+
+    setFlash.setOnClickListener(new View.OnClickListener() {
+      @Override public void onClick(View v) {
+        if (cameraSource!=null){
+          cameraSource.setFlash(!cameraSource.getFlash());
+          updateFlashUi();
+        }
+      }
+    });
 
     if (allPermissionsGranted()) {
       createCameraSource();
     } else {
       getRuntimePermissions();
+    }
+  }
+
+  private void updateFlashUi(){
+    if (cameraSource==null){
+      toggleFlash.setVisibility(View.GONE);
+      setFlash.setVisibility(View.GONE);
+    } else {
+      toggleFlash.setVisibility(View.VISIBLE);
+      setFlash.setVisibility(View.VISIBLE);
+      setFlash.setText(cameraSource.getFlash()
+              ? "Turn flashlight off"
+              : "Turn flashlight on"
+      );
     }
   }
 
@@ -88,6 +125,8 @@ public final class PreviewActivity extends AppCompatActivity implements OnReques
         finish();
       }
     },barcodeFormat));
+
+    updateFlashUi();
   }
 
   /**
