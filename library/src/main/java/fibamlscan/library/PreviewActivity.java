@@ -57,8 +57,8 @@ public final class PreviewActivity extends AppCompatActivity implements OnReques
 
     setContentView(R.layout.activity_live_preview);
 
-    preview = (CameraSourcePreview) findViewById(R.id.firePreview);
-    graphicOverlay = (GraphicOverlay) findViewById(R.id.fireFaceOverlay);
+    preview = (CameraSourcePreview) findViewById(R.id.preview);
+    graphicOverlay = (GraphicOverlay) findViewById(R.id.overlay);
 
     if (allPermissionsGranted()) {
       createCameraSource();
