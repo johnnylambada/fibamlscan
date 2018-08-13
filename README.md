@@ -1,3 +1,39 @@
 # fibamlscan - Firebase ML Kit Barcode scanner Library and Example App
 
-This library is based on the [Firebase for ML Kit quickstart](https://github.com/firebase/quickstart-android/tree/master/mlkit) tutorial. To use it you'll need to generate the app/google-services.json file.
+This library is based on the [Firebase for ML Kit quickstart](https://github.com/firebase/quickstart-android/tree/master/mlkit) tutorial. 
+
+## Using this library
+
+The following steps enable you to use this library.
+
+### generate the app/google-services.json file
+
+General instructions are available [here](https://firebase.google.com/docs/android/setup). 
+You can also generate it directly using the [firebase console](https://developer.android.com/studio/write/firebase).
+
+Make sure the generated `google-services.json` file ends up in the `app/` directory.
+
+### Add the Firebase SDK to your project
+
+Documentation is available [here](https://firebase.google.com/docs/android/setup?authuser=0). 
+If you're not using Firebase in any other way, you don't have to add the 
+`implementation 'com.google.firebase:firebase-core:16.0.1'` instruction to your app/build.gradle 
+file.
+
+### Set up jitpack.io for your project
+
+Refer to [jitpack's documentation](https://jitpack.io/) for instructions.
+
+### Add the library to your project
+
+Add the following lines to your `app/build.gradle` dependencies:
+
+```groovy
+// https://github.com/johnnylambada/fibamlscan
+implementation "com.github.johnnylambada:fibamlscan:0.1.0"
+```
+
+### Review the sample app to see how to integrate the library.
+
+1. Review the [PreviewActivity](https://github.com/johnnylambada/fibamlscan/blob/3b04869004ddba66a825d4497f15a3a9b4d31aad/app/src/main/java/fibamlscan/app/PreviewActivity.java).
+2. Review the [PreviewActivity's layout](https://github.com/johnnylambada/fibamlscan/blob/246abe742d5036616d73590626167b034d16520f/library/src/main/res/layout/activity_live_preview.xml).
