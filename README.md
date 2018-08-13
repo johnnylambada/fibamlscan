@@ -2,6 +2,8 @@
 
 This library is based on the [Firebase for ML Kit quickstart](https://github.com/firebase/quickstart-android/tree/master/mlkit) tutorial. 
 
+It allows you to easily integrate the Firebase ML Kit barcode scanning engine into your app. The Firebase ML Kit is better than ZXing for some bar codes, especially PDF417 used for driver's licenses.
+
 ## Using this library
 
 The following steps enable you to use this library.
