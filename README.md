@@ -32,10 +32,10 @@ Add the following lines to your `app/build.gradle` dependencies:
 
 ```groovy
 // https://github.com/johnnylambada/fibamlscan
-implementation "com.github.johnnylambada:fibamlscan:0.1.0"
+implementation "com.github.johnnylambada:fibamlscan:0.1.1"
 ```
 
 ### Review the sample app to see how to integrate the library.
 
-1. Review the [PreviewActivity](https://github.com/johnnylambada/fibamlscan/blob/3b04869004ddba66a825d4497f15a3a9b4d31aad/app/src/main/java/fibamlscan/app/PreviewActivity.java).
-2. Review the [PreviewActivity's layout](https://github.com/johnnylambada/fibamlscan/blob/246abe742d5036616d73590626167b034d16520f/library/src/main/res/layout/activity_live_preview.xml).
+1. Review the [PreviewActivity](https://github.com/johnnylambada/fibamlscan/blob/master/app/src/main/java/fibamlscan/app/PreviewActivity.java).
+2. Review the [PreviewActivity's layout](https://github.com/johnnylambada/fibamlscan/blob/master/library/src/main/res/layout/activity_live_preview.xml).
