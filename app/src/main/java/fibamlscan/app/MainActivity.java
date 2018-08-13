@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.TextView;
 
 import fibamlscan.library.BarcodeType;
-import fibamlscan.library.PreviewActivity;
 
 public class MainActivity extends AppCompatActivity {
 

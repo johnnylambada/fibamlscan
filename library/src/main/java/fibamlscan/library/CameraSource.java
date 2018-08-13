@@ -577,7 +577,11 @@ public class CameraSource {
     }
   }
 
-  void setMachineLearningFrameProcessor(VisionImageProcessor processor) {
+  /**
+   * Set the MachineLearning algorithm used to process each frame
+   * @param processor
+   */
+  public void setMachineLearningFrameProcessor(VisionImageProcessor processor) {
     synchronized (processorLock) {
       cleanScreen();
       if (frameProcessor != null) {

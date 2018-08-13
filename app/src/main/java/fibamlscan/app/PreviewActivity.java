@@ -11,7 +11,7 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-package fibamlscan.library;
+package fibamlscan.app;
 
 import android.app.Activity;
 import android.content.Context;
@@ -25,11 +25,15 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
-import com.google.firebase.ml.vision.barcode.FirebaseVisionBarcode;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import fibamlscan.library.BarcodeScanningProcessor;
+import fibamlscan.library.BarcodeType;
+import fibamlscan.library.CameraSource;
+import fibamlscan.library.CameraSourcePreview;
+import fibamlscan.library.GraphicOverlay;
 
 /** This class is used to set up continuous frame processing on frames from a camera source. */
 public final class PreviewActivity extends AppCompatActivity implements OnRequestPermissionsResultCallback {
@@ -55,10 +59,10 @@ public final class PreviewActivity extends AppCompatActivity implements OnReques
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 
-    setContentView(R.layout.activity_live_preview);
+    setContentView(fibamlscan.library.R.layout.activity_live_preview);
 
-    preview = (CameraSourcePreview) findViewById(R.id.preview);
-    graphicOverlay = (GraphicOverlay) findViewById(R.id.overlay);
+    preview = (CameraSourcePreview) findViewById(fibamlscan.library.R.id.preview);
+    graphicOverlay = (GraphicOverlay) findViewById(fibamlscan.library.R.id.overlay);
 
     if (allPermissionsGranted()) {
       createCameraSource();
@@ -73,7 +77,7 @@ public final class PreviewActivity extends AppCompatActivity implements OnReques
       cameraSource = new CameraSource(this, graphicOverlay);
     }
 
-    int barcodeFormat = FirebaseVisionBarcode.FORMAT_ALL_FORMATS;
+    int barcodeFormat = BarcodeType.ALL_FORMATS.type;
     if (getIntent()!=null) {
       barcodeFormat = getIntent().getIntExtra(EXTRA_BARCODE_FORMAT,barcodeFormat);
     }
