@@ -52,7 +52,7 @@ public class CameraSource {
   @SuppressLint("InlinedApi")
   public static final int CAMERA_FACING_FRONT = CameraInfo.CAMERA_FACING_FRONT;
 
-  private static final String TAG = "MIDemoApp:CameraSource";
+  private static final String TAG = "fibamlscan:CameraSource";
 
   /**
    * The dummy surface texture must be assigned a chosen name. Since we never use an OpenGL context,
@@ -776,7 +776,6 @@ public class CameraSource {
 
         try {
           synchronized (processorLock) {
-            Log.d(TAG, "Process an image");
             frameProcessor.process(
                 data,
                 new FrameMetadata.Builder()

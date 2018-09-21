@@ -32,7 +32,7 @@ Add the following lines to your `app/build.gradle` dependencies:
 
 ```groovy
 // https://github.com/johnnylambada/fibamlscan
-implementation "com.github.johnnylambada:fibamlscan:0.1.1"
+implementation "com.github.johnnylambada:fibamlscan:0.1.2"
 ```
 
 ### Review the sample app to see how to integrate the library.
