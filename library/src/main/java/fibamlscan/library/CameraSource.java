@@ -371,8 +371,8 @@ public class CameraSource {
     if (requestedAutoFocus) {
       if (parameters
           .getSupportedFocusModes()
-          .contains(Camera.Parameters.FOCUS_MODE_CONTINUOUS_VIDEO)) {
-        parameters.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_VIDEO);
+          .contains(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE)) {
+        parameters.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);
       } else {
         Log.i(TAG, "Camera auto focus is not supported on this device.");
       }
